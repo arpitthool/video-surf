@@ -30,6 +30,7 @@
                 <configuration>
                     <nodeVersion>v14.17.3</nodeVersion>
                     <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                    <workingDirectory>video-surf-ui</workingDirectory>
                 </configuration>
                 <executions>
                     <execution>
