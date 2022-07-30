@@ -1,6 +1,7 @@
 package com.arpitthool.app.videosurf.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,11 @@ import java.util.UUID;
 public class S3Service implements FileService {
 
     private final AmazonS3Client amazonS3Client;
+    public static final String AWS_S3_BUCKET_NAME = "videosurf";
 
     // upload file to s3
     @Override
     public String uploadFile(MultipartFile file) {
-        String awsS3BucketName = "videosurf";
-
         // get file extension
         var fileNameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
@@ -36,12 +36,16 @@ public class S3Service implements FileService {
 
         // upload file to s3
         try {
-            amazonS3Client.putObject(awsS3BucketName, key, file.getInputStream(), metadata);
+            amazonS3Client.putObject(AWS_S3_BUCKET_NAME, key, file.getInputStream(), metadata);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "An exception occurred while uploading the file");
         }
 
-        return null;
+        // publicly expose s3 file
+        amazonS3Client.setObjectAcl(AWS_S3_BUCKET_NAME, key, CannedAccessControlList.PublicRead);
+
+        // return file's public url
+        return amazonS3Client.getResourceUrl(AWS_S3_BUCKET_NAME, key);
     }
 }
