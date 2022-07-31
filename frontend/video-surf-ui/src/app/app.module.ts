@@ -8,6 +8,7 @@ import { UploadVideoComponent } from './upload-video/upload-video.component';
 import {NgxFileDropModule} from "ngx-file-drop";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
