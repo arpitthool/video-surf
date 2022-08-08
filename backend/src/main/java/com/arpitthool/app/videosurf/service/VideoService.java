@@ -1,5 +1,6 @@
 package com.arpitthool.app.videosurf.service;
 
+import com.arpitthool.app.videosurf.dto.UploadVideoResponse;
 import com.arpitthool.app.videosurf.dto.VideoDto;
 import com.arpitthool.app.videosurf.model.Video;
 import com.arpitthool.app.videosurf.repository.VideoRepository;
@@ -14,7 +15,7 @@ public class VideoService {
     private final S3Service s3Service;
     private final VideoRepository videoRepository;
 
-    public void uploadVideo(MultipartFile multipartFile) {
+    public UploadVideoResponse uploadVideo(MultipartFile multipartFile) {
         // upload file to s3 bucket
         String videoUrl = s3Service.uploadFile(multipartFile);
 
@@ -23,7 +24,10 @@ public class VideoService {
         video.setVideoUrl(videoUrl);
 
         // save video to mongodb database
-        videoRepository.save(video);
+        Video savedVideo = videoRepository.save(video);
+
+        // return UploadVideoResponse object
+        return new UploadVideoResponse(savedVideo.getId(), savedVideo.getVideoUrl());
     }
 
     public VideoDto editVideo(VideoDto videoDto) {
