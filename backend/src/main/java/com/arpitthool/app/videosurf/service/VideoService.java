@@ -1,5 +1,6 @@
 package com.arpitthool.app.videosurf.service;
 
+import com.arpitthool.app.videosurf.dto.VideoDto;
 import com.arpitthool.app.videosurf.model.Video;
 import com.arpitthool.app.videosurf.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,20 @@ public class VideoService {
 
         // save video to mongodb database
         videoRepository.save(video);
+    }
+
+    public VideoDto editVideo(VideoDto videoDto) {
+        // find video by id
+        Video savedVideo = videoRepository.findById(videoDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find video by id : " + videoDto.getId()));
+        // map videoDto fields to Video
+        savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl());
+        savedVideo.setVideoStatus(videoDto.getVideoStatus());
+        savedVideo.setTags(videoDto.getTags());
+        savedVideo.setDescription(videoDto.getDislikes());
+        savedVideo.setTitle(videoDto.getTitle());
+        // save the video to database
+        videoRepository.save(savedVideo);
+        return videoDto;
     }
 }
