@@ -1,5 +1,6 @@
 package com.arpitthool.app.videosurf.controller;
 
+import com.arpitthool.app.videosurf.dto.VideoDto;
 import com.arpitthool.app.videosurf.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,11 @@ public class VideoController {
     @ResponseStatus(HttpStatus.CREATED) // on success sends CREATED status code
     public void uploadVideo(@RequestParam("file")MultipartFile file) {
         videoService.uploadVideo(file);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto editVideoMetadata(@RequestBody VideoDto videoDto) {
+        return videoService.editVideo(videoDto);
     }
 }
