@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class VideoController {
 
+    /*
+    API endpoint for uploading video file
+     */
     private final VideoService videoService;
 
     @PostMapping // this accepts post request
@@ -20,6 +23,19 @@ public class VideoController {
         videoService.uploadVideo(file);
     }
 
+    /*
+    API endpoint for uploading thumbnail file
+     */
+    @PostMapping("/thumbnail") // this accepts post request
+    @ResponseStatus(HttpStatus.CREATED) // on success sends CREATED status code
+    public String uploadThumbnail(@RequestParam("file") MultipartFile file,
+                                @RequestParam("videoId") String videoId ) {
+        return videoService.uploadThumbnail(file, videoId);
+    }
+
+    /*
+    API endpoint for editing video
+     */
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public VideoDto editVideoMetadata(@RequestBody VideoDto videoDto) {
