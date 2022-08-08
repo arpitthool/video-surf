@@ -27,17 +27,41 @@ public class VideoService {
     }
 
     public VideoDto editVideo(VideoDto videoDto) {
-        // find video by id
-        Video savedVideo = videoRepository.findById(videoDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find video by id : " + videoDto.getId()));
+        // get video
+        var savedVideo = getVideoById(videoDto.getId());
+
         // map videoDto fields to Video
         savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl());
         savedVideo.setVideoStatus(videoDto.getVideoStatus());
         savedVideo.setTags(videoDto.getTags());
         savedVideo.setDescription(videoDto.getDislikes());
         savedVideo.setTitle(videoDto.getTitle());
+
         // save the video to database
         videoRepository.save(savedVideo);
         return videoDto;
+    }
+
+    public String uploadThumbnail(MultipartFile file, String videoId) {
+        // get video from db
+        var savedVideo = getVideoById(videoId);
+
+        // save thumbnail file to s3 bucket and get url for file
+        String thumbnailUrl = s3Service.uploadFile(file);
+
+        // save thumbnail url for the video in db
+        savedVideo.setThumbnailUrl(thumbnailUrl);
+
+        // save modified video to db
+        videoRepository.save(savedVideo);
+
+        return thumbnailUrl;
+    }
+
+    public Video getVideoById(String videoId) {
+        // find video by id
+        return videoRepository.findById(videoId)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find video by id : " + videoId));
+
     }
 }
