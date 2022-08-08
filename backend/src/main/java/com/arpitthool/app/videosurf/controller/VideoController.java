@@ -1,5 +1,6 @@
 package com.arpitthool.app.videosurf.controller;
 
+import com.arpitthool.app.videosurf.dto.UploadVideoResponse;
 import com.arpitthool.app.videosurf.dto.VideoDto;
 import com.arpitthool.app.videosurf.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class VideoController {
 
     @PostMapping // this accepts post request
     @ResponseStatus(HttpStatus.CREATED) // on success sends CREATED status code
-    public void uploadVideo(@RequestParam("file")MultipartFile file) {
-        videoService.uploadVideo(file);
+    public UploadVideoResponse uploadVideo(@RequestParam("file")MultipartFile file) {
+        return videoService.uploadVideo(file);
     }
 
     /*
