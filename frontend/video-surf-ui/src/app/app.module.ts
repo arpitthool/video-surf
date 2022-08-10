@@ -19,6 +19,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatChipsModule} from "@angular/material/chips";
+import {VgCoreModule} from "@videogular/ngx-videogular/core";
+import {VgBufferingModule} from "@videogular/ngx-videogular/buffering";
+import {VgOverlayPlayModule} from "@videogular/ngx-videogular/overlay-play";
+import {VgControlsModule} from "@videogular/ngx-videogular/controls";
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import {MatChipsModule} from "@angular/material/chips";
     MatOptionModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatChipsModule
+    MatChipsModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
