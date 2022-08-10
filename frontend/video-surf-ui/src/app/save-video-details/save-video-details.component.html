@@ -1,1 +1,30 @@
-<p>save-video-details works!</p>
+<div fxLayout="row wrap">
+  <div fxFlex="20%">HI</div>
+
+  <div fxFlex="30%">
+    <div class="mat-title">Add Video Metadata</div>
+
+    <form>
+      <mat-form-field appearance="fill" style="background: darkolivegreen">
+        <mat-label>Title</mat-label>
+        <input matInput required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="background: darkolivegreen">
+        <mat-label>Description</mat-label>
+        <input matInput required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="background: darkolivegreen">
+        <mat-label>Video Status</mat-label>
+        <mat-select required>
+          <mat-option value="PUBLIC">PUBLIC</mat-option>
+          <mat-option value="PRIVATE">PRIVATE</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div fxFlex="30%">video player</div>
+  <div fxFlex="20%">blank</div>
+</div>
