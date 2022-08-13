@@ -4,6 +4,7 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ActivatedRoute} from "@angular/router";
 import {VideoService} from "../video.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-save-video-details',
@@ -24,7 +25,9 @@ export class SaveVideoDetailsComponent implements OnInit {
   selectedFileName = '';
   videoId = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private videoService: VideoService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private videoService: VideoService,
+              private matSnackBar: MatSnackBar) {
     this.videoId = activatedRoute.snapshot.params['videoId'];
     this.saveVideoDetailsForm = new FormGroup({
       title: this.title,
@@ -66,7 +69,7 @@ export class SaveVideoDetailsComponent implements OnInit {
     this.videoService.uploadThumbnail(this.selectedFile, this.videoId)
       .subscribe(data => {
         console.log(data);
-        // TODO: show file upload success notification
-    });
+        this.matSnackBar.open(`Thumbnail uploaded successfully`, "OK");
+      });
   }
 }
