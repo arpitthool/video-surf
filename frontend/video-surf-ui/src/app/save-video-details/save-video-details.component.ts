@@ -18,6 +18,8 @@ export class SaveVideoDetailsComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
+  selectedFile!: File;
+  selectedFileName = '';
 
   constructor() {
     this.saveVideoDetailsForm = new FormGroup({
@@ -50,4 +52,13 @@ export class SaveVideoDetailsComponent implements OnInit {
     }
   }
 
+  onFileSelected($event: Event) {
+    // @ts-ignore
+    this.selectedFile = event.target.files[0];
+    this.selectedFileName = this.selectedFile.name;
+  }
+
+  onUpload() {
+
+  }
 }
