@@ -50,7 +50,8 @@
                    aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)">
           </div>
           <br />
-          <div>
+          <div *ngIf="fileSelected">
+            <div>
             <p>
               Selected File: {{selectedFileName}}
             </p>
@@ -58,6 +59,7 @@
             <div>
               <button type="submit" mat-raised-button color="primary" (click)="onUpload()">Upload</button>
             </div>
+          </div>
           </div>
         </label>
       </div>
