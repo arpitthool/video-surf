@@ -62,10 +62,29 @@ public class VideoService {
         return thumbnailUrl;
     }
 
-    public Video getVideoById(String videoId) {
+    Video getVideoById(String videoId) {
         // find video by id
         return videoRepository.findById(videoId)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find video by id : " + videoId));
 
+    }
+
+    public VideoDto getVideoDetails(String videoId) {
+        // get video from database
+        Video savedVideo = getVideoById(videoId);
+
+        // create new VideoDto object
+        VideoDto videoDto = new VideoDto();
+
+        // map videoDto fields to Video
+        videoDto.setThumbnailUrl(savedVideo.getThumbnailUrl());
+        videoDto.setVideoUrl(savedVideo.getVideoUrl());
+        videoDto.setId(savedVideo.getId());
+        videoDto.setDescription(savedVideo.getDislikes());
+        videoDto.setTitle(savedVideo.getTitle());
+        videoDto.setVideoStatus(savedVideo.getVideoStatus());
+        videoDto.setTags(savedVideo.getTags());
+
+        return videoDto;
     }
 }
