@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {UploadVideoResponse} from "./upload-video/UploadVideoResponse";
 import {Observable} from "rxjs";
+import {VideoDto} from "./video-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,14 @@ export class VideoService {
     formData.append('file', file, file.name)
     // set videoId parameter
     formData.append('videoId', videoId)
-    // make a HTTP POST to backend API
+    // make HTTP POST to backend API
     return this.httpClient.post('http://localhost:8080/api/videos/thumbnail', formData, {
       responseType: 'text'
     });
+  }
+
+  getVideo(videoId: string): Observable<VideoDto> {
+    // make HTTP POST to backend API
+    return this.httpClient.get<VideoDto>('http://localhost:8080/api/videos/'+videoId);
   }
 }
