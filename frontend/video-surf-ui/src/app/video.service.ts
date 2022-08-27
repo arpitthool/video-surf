@@ -37,4 +37,10 @@ export class VideoService {
     // make HTTP POST to backend API
     return this.httpClient.get<VideoDto>('http://localhost:8080/api/videos/'+videoId);
   }
+
+  saveVideo(videoMetaData: VideoDto): Observable<VideoDto> {
+    // PUT request to save video details
+    // @ts-ignore
+    return this.httpClient.put('http://localhost:8080/api/videos', videoMetaData);
+  }
 }
