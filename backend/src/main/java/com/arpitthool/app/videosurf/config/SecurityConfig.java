@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .cors(Customizer.withDefaults())
+//                .cors(Customizer.withDefaults())
                 .oauth2ResourceServer()
                 .jwt();
     }
